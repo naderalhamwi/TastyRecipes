@@ -4,9 +4,114 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <Script src="app.js" crossorigin="anonymous"></Script>
     <title>profile</title>
 </head>
 <body>
-    
+    <header>
+        <a href="Home.html"><img src="Untitled-2.png" alt="Logo"></a>
+        <form id="searchForm">
+            <fieldset>
+                <input type="search" name="searchBar" onsubmit="return false">
+                <input type="submit" value="Sök">
+            </fieldset>
+        </form>
+        <p id="userName"></p>
+        <nav id="main-menu" class="main-menu">
+            <i class="fas fa-bars">
+            <ul>
+                <hr>
+                <li><button id="logoutbutton">Logga out</button></li><hr>
+                <li><a id="profileLink">min profile</a></li><hr>
+                <p>kategori</p><hr>
+                <li><a href="#">Kött</a></li><hr>
+                <li><a href="#">Grönt</a></li><hr>
+                <li><a href="#">Fisk</a></li>
+                <hr>
+            </ul>
+            </i>
+        </nav>
+    </header>
+    <section id="myRecipes">myRecipes</section>
+    <form id="editAccount" method="POST" onsubmit="return false"><!--Create account form-->
+        <fieldset>
+            <legend>ändra uppgifter</legend>
+            <label for="createAccUserName">Användarnamn</label>
+            <input type="text" name="userName" id="createAccUserName" disabled>
+            <label for="createAccEmail">Mail</label>
+            <input type="email" name="email" id="createAccEmail">
+            <label for="createAccPassword">Lösenord</label>
+            <input type="password" name="password" id="createAccPassword">
+            <input type="submit" value="Skapa konto" disabled>
+        </fieldset>
+    </form>
+    <form id="adminEditAccount" method="POST" onsubmit="return false" >
+        <fieldset>
+            <legend>ändra uppgifter</legend>
+            <label for="searchUser">sök efter användaren</label>
+            <input type="search" name="searchUser" onsubmit="return false">
+            <button>sök</button><br>
+
+            <label for="createAccUserName">Användarnamn</label>
+            <input type="text" name="userName" id="adminEditUserName" disabled>
+            <label for="createAccEmail">Mail</label>
+            <input type="email" name="email" id="adminEditEmail">
+            <label for="createAccPassword">Lösenord</label>
+            <input type="password" name="password" id="adminEditPassword">
+
+            <button disabled>ändra</button>
+            <button disabled>tar bort</button>
+        </fieldset>
+    </form>
+    <form action="">
+        <fieldset>
+            <label for="title">title</label>
+            <input type="text"><br>
+
+            <label for="items">Kategori</label>
+            <select id="KategoriItems">
+                <option value="Kött">Kött</option>
+                <option value="Grönt">Grön</option>
+                <option value="Fisk">Fisk</option>
+            </select><br>
+
+            <label for="tid">tid</label>
+            <input type="text" name="tid"><br>
+
+            <label for="img">Lägg till bild:</label>
+            <input type="file" id="img" name="img" accept="image/*"><br>
+
+            <label for="näringsvärde">näringsvärde</label>
+            <input type="text" name="näringsvärde"><br>
+
+            <label for="Beskrivning:">Beskrivning:</label>
+            <input type="text" name="Beskrivning:"><br>
+
+            <label for="ingredienser:">ingredienser:</label>
+            <ol type="1" id="ingrediensList">
+                <li><input type="ingrediens"></li>
+                <button>- tar bort ingrediens</button>
+                <li><input type="ingrediens"></li>
+                <button>- tar bort ingrediens</button>
+            </ol>
+            <button>+nytt ingrediens</button><br>
+
+            <label for="stegs:">steg:</label>
+            <ol type="1" id="stegList">
+                <li><input type="steg"></li>
+                <button>- tar bort ingrediens</button>
+                <li><input type="steg"></li>
+                <button>- tar bort ingrediens</button>
+            </ol>
+            <button>+nytt ingrediens</button><br>
+
+            <button>lägg till nytt recipt</button>
+            <button>tar bort recept</button>
+            <button>ändra recept</button>
+        </fieldset>
+    </form>
+    <footer>
+        <p>ContactUs Phone Number: 04273837620. EmailAdres: TastyRecipes</p>
+    </footer>
 </body>
 </html>
