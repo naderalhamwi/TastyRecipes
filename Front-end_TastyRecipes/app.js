@@ -6,7 +6,6 @@ var action = 1; //one button one function on first click another on second
 window.onload = init;
 
 async function init(){
-    document.getElementById("adminEditAccount").style.display = "none";
     logInForm = document.getElementById("logIn");  //Saves reference to the log in form
     logInForm.addEventListener("submit", logIn);  //Eventlistener submit, runs logIn function
 
@@ -31,7 +30,7 @@ async function init(){
         document.getElementById("profileLink").disabled  = true;
         document.getElementById("logoutbutton").disabled  = true;
     }else{
-        document.getElementById("adminEditAccount").style.display = "block";
+        //document.getElementById("adminEditAccount").style.display = "block";
         logInForm.elements[0].disabled  = true;
         createAcc.elements[0].disabled  = true;
         document.getElementById("loginRegister").style.display = "none";
