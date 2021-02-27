@@ -5,21 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/de05059076.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
+    <Script src="app.js" crossorigin="anonymous"></Script>
     <title>Home</title>
 </head>
 <body>
     <header>
         <a href="Home.html"><img src="Untitled-2.png" alt="Logo"></a>
         <div></div>
-        <p id="loginRegister">login/register</p>
-        <p id="userName">Nader Alhamwi</p>
+        <button id="loginRegister" >login/register</button>
+        <p id="userName"></p>
         <nav id="main-menu" class="main-menu">
             <i class="fas fa-bars">
             <ul>
                 <hr>
-                <li><a href="#">Logga ut</a></li><hr>
-                <li><a href="#">min profile</a></li><hr>
+                <li><button id="logoutbutton">Logga out</button></li><hr>
+                <li><a id="profileLink">min profile</a></li><hr>
                 <p>kategori</p><hr>
                 <li><a href="#">Kött</a></li><hr>
                 <li><a href="#">Grönt</a></li><hr>
@@ -29,18 +29,17 @@
             </i>
         </nav>
     </header>
-    <section>
-        <form id="logIn" method="POST" onsubmit="return false"><!--Log in form-->
+    <section id="accountForms">
+        <form id="logIn" method="GET" onsubmit="return false"><!--Log in form-->
             <fieldset>
                 <legend>Logga in</legend>
                 <label for="logInUserName">Användarnamn</label>
                 <input type="text" name="userName" id="logInUserName">
                 <label for="logInPassword">Lösenord</label>
                 <input type="password" name="password" id="logInPassword">
-                <input type="submit" value="Logga in">
+                <input type="submit" value="Loggain" name="buttom">
             </fieldset>
         </form>
-
         <form id="createAcc" method="POST" onsubmit="return false"><!--Create account form-->
             <fieldset>
                 <legend>Skapa konto</legend>
