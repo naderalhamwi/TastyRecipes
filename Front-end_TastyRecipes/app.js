@@ -55,12 +55,15 @@ function logIn(){
         },
         }).then((response) => {
             console.log(response.status);
-            console.log("adminStatus: " + response);
+
+            response.text().then(function(text){
+                sessionStorage.setItem("adminSatus", text);
+            });
             if(response.ok){
                 sessionStorage.setItem("userName", name);  //Saves username in sessionStorage
                 document.getElementById("userName").innerText = sessionStorage.getItem("userName");
                 document.getElementById("loginRegister").style.display = "none";
-                location.reload();
+                location.reload();  //reloads the page
             }else{
                 alert("Fel användarnamn/lösenord");
             }
