@@ -75,8 +75,9 @@ function logIn(){
 }
 
 function logOut(){
-    sessionStorage.removeItem("userName");  //Removes the logged in user
-    location.reload();  //reloads the page
+    sessionStorage.removeItem("userName"); 
+    sessionStorage.removeItem("adminSatus");  
+    location.reload();  
 }
 
 function createAccount(){
@@ -85,7 +86,7 @@ function createAccount(){
     let pass = createAcc.password.value;
     let email = createAcc.email.value;
 
-    let userData = {  //User information as json object
+    let userData = { 
         "userName": name,
         "email": email,
         "password": pass
@@ -93,19 +94,19 @@ function createAccount(){
 
     fetch("http://localhost:8080/Backend/resources/user/create", {
         method: "POST",
-        mode: 'no-cors',
+        mode: 'cors',
         headers: {  
             'Content-Type': 'text/plain'
         },
         body: JSON.stringify(userData)
         }).then((response) => {
-            if(response.ok){
-                sessionStorage.setItem("userName", name);  //Sparar användare
+            console.log(response);
+            if(response.status == 201){
+                sessionStorage.setItem("userName", name); 
                 alert("created");
             }else{
                 alert("Det gick inte att skapa kontot")
             }
-
             return response;
         }).catch(err => {
             console.log(err);

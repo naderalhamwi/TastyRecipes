@@ -18,11 +18,17 @@ async function init(){
             document.getElementById("adminEditAccount").style.display = "none";
         }
     }
+
+    if(sessionStorage.getItem("userName") == null){
+        location.replace("Home.html");
+        alert("du måste vara inloggad för att gå vidare till din profil");
+    }
 }
 
 
 function logOut(){
     sessionStorage.removeItem("userName");  //Removes the logged in user
+    sessionStorage.removeItem("adminSatus");  
     location.reload();  //reloads the page
     location = "Home.html"
 }
