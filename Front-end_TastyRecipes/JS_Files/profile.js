@@ -7,6 +7,7 @@ async function init(){
     document.getElementById("userName").innerText = sessionStorage.getItem("userName");
     document.getElementById("logoutbutton").addEventListener("click", logOut);
     document.getElementById("editUserDataButton").addEventListener("click", adminChangeUserData);
+    document.getElementById("createReciptButton").addEventListener("click", createRecipe);
     document.getElementById("deleteUserButton").addEventListener("click", adminDeleteUser);
     document.getElementById("changeUserDataButton").addEventListener("click", changeUserData);
 
@@ -32,6 +33,15 @@ async function init(){
         location.replace("Home.html");
         alert("du måste vara inloggad för att gå vidare till din profil");
     }
+
+    document.getElementById("addNewIngredens").addEventListener("click", () =>{
+        document.getElementById("ingrediensList").innerHTML += "<li>" + "<input type=ingrediens>" + "</li>"
+        document.getElementById("ingrediensList").innerHTML += "<button id=deleteIngredens>"+ "- tar bort ingrediens"+"</button>"
+    });
+    document.getElementById("addNewSteg").addEventListener("click", () =>{
+        document.getElementById("stegList").innerHTML += "<li>" + "<input type=steg>" + "</li>"
+        document.getElementById("stegList").innerHTML += "<button id=deleteSteg>"+ "- tar bort steg"+"</button>"
+    });
 }
 
 function logOut(){
@@ -140,4 +150,44 @@ function adminDeleteUser(){
             console.log(err);
         });
     }
+}
+
+
+function createRecipe(){
+    let createReciptForm = document.getElementById("createRecipt");
+    var x = document.getElementById("KategoriItems");
+    var i = x.selectedIndex;
+
+
+
+    let recipeData = {
+        "title": createReciptForm.title.value,
+        "userName": sessionStorage.getItem("userName"),
+        "category": x.options[i].text,
+        "tid": createReciptForm.tid.value,
+        "imgPath": createReciptForm.img.value,
+        "nutritionalValue": createReciptForm.näringsvärde.value,
+        "IngredientInfo":"w,e,r,t,y,u,i,o",
+        "steg":"a,b,c,d,e,f,g,h,i,g,k",
+        "description": createReciptForm.Beskrivning.value
+    };
+
+    fetch('http://localhost:8080/Backend/resources/recipe/create', {
+        method: "POST",
+        mode: 'cors',
+        headers: {  
+            'Content-Type': 'text/plain'
+        },
+        body: JSON.stringify(recipeData)
+        })
+        .then((response) => {
+            return response.json(); // or .text() or .blob() ...
+        })
+        .then((text) => {
+            // text is the response body
+        })
+        .catch((e) => {
+            // error in e.message
+    });
+    console.log(createReciptForm.img.value);
 }

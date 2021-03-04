@@ -63,13 +63,13 @@
             <input type="button" id="deleteUserButton" value="tar bort">
         </fieldset>
     </form>
-    <form action="">
+    <form id="createRecipt" method="POST" onsubmit="return false">
         <fieldset>
             <label for="title">title</label>
-            <input type="text"><br>
+            <input type="text" name="title"><br>
 
-            <label for="items">Kategori</label>
-            <select id="KategoriItems">
+            <label for="kategoriItems">Kategori</label>
+            <select id="KategoriItems" name="kategoriItems">
                 <option value="Kött">Kött</option>
                 <option value="Grönt">Grön</option>
                 <option value="Grönt">Sött</option>
@@ -80,33 +80,23 @@
             <input type="text" name="tid"><br>
 
             <label for="img">Lägg till bild:</label>
-            <input type="file" id="img" name="img" accept="image/*"><br>
+            <input type="file" id="img" accept="image/*"><br>
 
             <label for="näringsvärde">näringsvärde</label>
             <input type="text" name="näringsvärde"><br>
 
-            <label for="Beskrivning:">Beskrivning:</label>
-            <input type="text" name="Beskrivning:"><br>
+            <label for="Beskrivning">Beskrivning:</label>
+            <input type="text" name="Beskrivning"><br>
 
             <label for="ingredienser:">ingredienser:</label>
-            <ol type="1" id="ingrediensList">
-                <li><input type="ingrediens"></li>
-                <button>- tar bort ingrediens</button>
-                <li><input type="ingrediens"></li>
-                <button>- tar bort ingrediens</button>
-            </ol>
-            <button>+nytt ingrediens</button><br>
+            <ol type="1" id="ingrediensList"></ol>
+            <button id="addNewIngredens">+nytt ingrediens</button><br>
 
-            <label for="stegs:">steg:</label>
-            <ol type="1" id="stegList">
-                <li><input type="steg"></li>
-                <button>- tar bort ingrediens</button>
-                <li><input type="steg"></li>
-                <button>- tar bort ingrediens</button>
-            </ol>
-            <button>+nytt ingrediens</button><br>
+            <label for="stegs">steg:</label>
+            <ol type="1" id="stegList"></ol>
+            <button id="addNewSteg">+nytt steg</button><br>
 
-            <button>lägg till nytt recipt</button>
+            <input type="button" value="lägg till nytt recipt" id="createReciptButton">
             <button>tar bort recept</button>
             <button>ändra recept</button>
         </fieldset>

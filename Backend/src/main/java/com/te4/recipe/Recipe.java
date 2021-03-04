@@ -19,14 +19,14 @@ public class Recipe {
     private String category;
     private String imgPath;
     private String IngredientInfo;
+    private String steg;
     
     private int reciptId;
     private int likes;
     
-    private List steg;
     private List comments;
 
-    public Recipe(String title, String userName, String nutritionalValue, String description, String category, String imgPath, String IngredientInfo, int reciptId, int likes, List steg, List comments) {
+    public Recipe(String title, String userName, String nutritionalValue, String description, String category, String imgPath, String IngredientInfo, int reciptId, int likes, String steg, List comments) {
         this.title = title;
         this.userName = userName;
         this.nutritionalValue = nutritionalValue;
@@ -112,11 +112,11 @@ public class Recipe {
         this.likes = likes;
     }
 
-    public List getSteg() {
+    public String getSteg() {
         return steg;
     }
 
-    public void setSteg(List steg) {
+    public void setSteg(String steg) {
         this.steg = steg;
     }
 
