@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <Script src="profile.js" crossorigin="anonymous"></Script>
+    <Script src="/JS_Files/profile.js" crossorigin="anonymous"></Script>
     <title>profile</title>
 </head>
 <body>
     <header>
-        <a href="Home.html"><img src="Untitled-2.png" alt="Logo"></a>
+        <a href="Home.html"><img src="/imges/Untitled-2.png" alt="Logo"></a>
         <form id="searchForm">
             <fieldset>
                 <input type="search" name="searchBar" onsubmit="return false">
@@ -33,7 +33,7 @@
         </nav>
     </header>
     <section id="myRecipes">myRecipes</section>
-    <form id="editAccount" method="POST" onsubmit="return false"><!--Create account form-->
+    <form id="editAccount" method="POST" onsubmit="return false">
         <fieldset>
             <legend>ändra uppgifter</legend>
             <label for="editUserName">Användarnamn</label>
@@ -42,15 +42,14 @@
             <input type="email" name="email" id="editEmail">
             <label for="createAccPassword">Lösenord</label>
             <input type="password" name="password" id="createAccPassword">
-            <input type="submit" value="Skapa konto" disabled>
+            <input type="submit" value="Ändra uppgifter" id="changeUserDataButton">
         </fieldset>
     </form>
     <form id="adminEditAccount" method="POST" onsubmit="return false" >
         <fieldset>
             <legend>ändra uppgifter</legend>
             <label for="searchUser">sök efter användaren</label>
-            <input type="search" name="searchUser" onsubmit="return false">
-            <button>sök</button><br>
+            <input type="search" id="searchUserButton" name="searchUserinput"><br>
 
             <label for="createAccUserName">Användarnamn</label>
             <input type="text" name="userName" id="adminEditUserName" disabled>
@@ -59,8 +58,8 @@
             <label for="createAccPassword">Lösenord</label>
             <input type="password" name="password" id="adminEditPassword">
 
-            <button disabled>ändra</button>
-            <button disabled>tar bort</button>
+            <input type="button" id="editUserDataButton" value="ändra">
+            <input type="button" id="deleteUserButton" value="tar bort">
         </fieldset>
     </form>
     <form action="">

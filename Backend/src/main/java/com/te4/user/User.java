@@ -10,8 +10,8 @@ package com.te4.user;
  * @author Mohame Nader Alhamwi
  */
 public class User {
-    private String userName;
     private String email;
+    private String userName;
     private String password;
     private int adminStatus;
 

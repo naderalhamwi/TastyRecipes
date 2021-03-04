@@ -1,17 +1,17 @@
 
-var logInForm; //Reference to log in form
-var createAcc; //Reference to log in form
-var action = 1; //one button one function on first click another on second
-
-window.onload = init;
+var logInForm; 
+var createAcc; 
+var action = 1; 
+let searchForm;
 
 async function init(){
-    logInForm = document.getElementById("logIn");  //Saves reference to the log in form
-    logInForm.addEventListener("submit", logIn);  //Eventlistener submit, runs logIn function
+    logInForm = document.getElementById("logIn");  
+    logInForm.addEventListener("submit", logIn);  
 
-    createAcc = document.getElementById("createAcc");  //Saves reference to the log in form
-   createAcc.addEventListener("submit", createAccount);  //Eventlistener submit, runs logIn function
-    
+    createAcc = document.getElementById("createAcc");  
+   createAcc.addEventListener("submit", createAccount);
+   
+
     document.getElementById("logoutbutton").addEventListener("click", logOut);
     document.getElementById("accountForms").style.display = "none";
     document.getElementById("loginRegister").addEventListener("click", ()=>{
@@ -30,22 +30,18 @@ async function init(){
         document.getElementById("profileLink").disabled  = true;
         document.getElementById("logoutbutton").disabled  = true;
     }else{
-        //document.getElementById("adminEditAccount").style.display = "block";
         logInForm.elements[0].disabled  = true;
         createAcc.elements[0].disabled  = true;
         document.getElementById("loginRegister").style.display = "none";
         document.getElementById("profileLink").setAttribute('href', 'profile.html');
     }
-}
+}window.onload = init;
 
-/**
- * Checks with the database to see if the user with that passwords exists and returns true/false
- */
 function logIn(){
-    let name = logInForm.userName.value;  //username
-    let pass = logInForm.password.value;  //password
+    let name = logInForm.userName.value;
+    let pass = logInForm.password.value;
 
-    let encrypted = window.btoa(name + ":" + pass);  //Json to string as Base64
+    let encrypted = window.btoa(name + ":" + pass);
 
     fetch("http://localhost:8080/Backend/resources/user/confirm", {
         method: "GET",
@@ -60,10 +56,10 @@ function logIn(){
                 sessionStorage.setItem("adminSatus", text);
             });
             if(response.ok){
-                sessionStorage.setItem("userName", name);  //Saves username in sessionStorage
+                sessionStorage.setItem("userName", name);
                 document.getElementById("userName").innerText = sessionStorage.getItem("userName");
                 document.getElementById("loginRegister").style.display = "none";
-                location.reload();  //reloads the page
+                location.reload();
             }else{
                 alert("Fel användarnamn/lösenord");
             }
@@ -81,7 +77,6 @@ function logOut(){
 }
 
 function createAccount(){
-    /*           Form values           */
     let name = createAcc.userName.value;
     let pass = createAcc.password.value;
     let email = createAcc.email.value;
@@ -103,7 +98,8 @@ function createAccount(){
             console.log(response);
             if(response.status == 201){
                 sessionStorage.setItem("userName", name); 
-                alert("created");
+                alert("Konton Skapades");
+                location.reload();
             }else{
                 alert("Det gick inte att skapa kontot")
             }

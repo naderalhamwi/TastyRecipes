@@ -11,10 +11,7 @@ import javax.ejb.Stateless;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 /**
  *
@@ -79,4 +76,57 @@ public class UserBean {
            return 0;
        }
    }
+    
+      public int changeUserData(User user){
+       try (Connection con = ConnectionFactory.getConnection()){
+           
+           String hashedpassword = BCrypt.withDefaults().hashToString(12, user.getPassword().toCharArray());
+           
+           String uppdateUser = String.format("UPDATE user SET email='%s', password='%s' WHERE userName='%s'",
+                   user.getEmail(), 
+                   hashedpassword, 
+                   user.getUserName());
+           
+           PreparedStatement stmt = con.prepareStatement(uppdateUser);
+           int rows = stmt.executeUpdate(uppdateUser);
+           return rows;
+       } catch (Exception e) {
+           System.out.println("Error UserBean.changeUserData: " +e.getMessage());
+           return 0;
+       }
+   } 
+      
+      public User searchUser(String userName){
+           try (Connection con = ConnectionFactory.getConnection()){
+           
+           String uppdateUser = String.format("SELECT * FROM user WHERE userName='%s'", userName);
+           
+           PreparedStatement pstmt = con.prepareStatement(uppdateUser);
+                ResultSet data = pstmt.executeQuery();
+                data.next();
+                User user = new User(
+                data.getString("userName"),
+                data.getString("email"),
+                data.getString("password"),
+                data.getInt("adminStatus"));
+           return user;
+       } catch (Exception e) {
+           System.out.println("Error UserBean.searchUser: " +e.getMessage());
+           return null;
+       }
+    }
+      
+      public int deleteUser(String userName){
+           try (Connection con = ConnectionFactory.getConnection()){
+           
+           String uppdateUser = String.format("DELETE FROM user WHERE userName='%s'", userName);
+           
+           PreparedStatement stmt = con.prepareStatement(uppdateUser);
+           int rows = stmt.executeUpdate(uppdateUser);
+           return rows;
+       } catch (Exception e) {
+           System.out.println("Error UserBean.changeUserData: " +e.getMessage());
+           return 0;
+       }
+      }
 }

@@ -60,6 +60,36 @@ public class UserResource {
         User user = gson.fromJson(userInfo, User.class);
         
         if(userBean.saveUser(user) == 1){
+           return Response.status(Response.Status.CREATED).build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+    
+    @Path("/change")
+    @PUT
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response changeUserInfo(String userData){
+        Gson gson = new Gson();
+        User user = gson.fromJson(userData, User.class);
+        
+        if(userBean.changeUserData(user) == 1){
+           return Response.status(Response.Status.ACCEPTED).build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+    
+    @Path("/search")
+    @GET
+    public Response searchUser(@HeaderParam("userName")String userData){
+       return Response.accepted(userBean.searchUser(userData)).build();
+    }
+    
+    @Path("/delete")
+    @DELETE
+    public Response deleteUser(@HeaderParam("userName")String userName){
+       if(userBean.deleteUser(userName) == 1){
            return Response.ok().build();
         }else{
             return Response.status(Response.Status.BAD_REQUEST).build();
