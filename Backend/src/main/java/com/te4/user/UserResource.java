@@ -83,7 +83,11 @@ public class UserResource {
     @Path("/search")
     @GET
     public Response searchUser(@HeaderParam("userName")String userData){
-       return Response.accepted(userBean.searchUser(userData)).build();
+       if(userBean.searchUser(userData) != null){
+           return Response.accepted(userBean.searchUser(userData)).build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
     
     @Path("/delete")

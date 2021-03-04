@@ -72,6 +72,9 @@ function changeUserData(){
 
 function searchUser(){
     let adminEditAccount = document.getElementById("adminEditAccount");
+    if(adminEditAccount.searchUserinput.value == ""){
+        
+    }else{
         fetch('http://localhost:8080/Backend/resources/user/search', {
             method: 'GET',
             mode: 'cors',
@@ -83,7 +86,11 @@ function searchUser(){
           .then((data) => {
             adminEditAccount.userName.value = data.userName,
             adminEditAccount.email.value = data.email
-          });
+          }).catch(err => {
+            alert("användaren fins inte");
+        });
+    }
+        
 }
 
 function adminChangeUserData(){
