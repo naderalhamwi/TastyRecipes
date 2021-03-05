@@ -35,13 +35,50 @@ async function init(){
     }
 
     document.getElementById("addNewIngredens").addEventListener("click", () =>{
-        document.getElementById("ingrediensList").innerHTML += "<li>" + "<input type=ingrediens>" + "</li>"
-        document.getElementById("ingrediensList").innerHTML += "<button id=deleteIngredens>"+ "- tar bort ingrediens"+"</button>"
+        let liItem = document.createElement("li");
+        
+        let inputItem = document.createElement("input");
+        inputItem.setAttribute("type", "text");
+        inputItem.setAttribute("name", "ingrediens");
+
+        let ButtonItem = document.createElement("button");
+        ButtonItem.appendChild(document.createTextNode("- tar bort ingrediens"));
+        ButtonItem.setAttribute("id","deleteIngredens");
+
+
+        liItem.appendChild(inputItem);
+        let currentOl = document.getElementById("ingrediensList");
+        document.getElementById("ingrediensList").appendChild(liItem, currentOl);
+        document.getElementById("ingrediensList").appendChild(ButtonItem, currentOl);
+
+        document.getElementById("deleteIngredens").addEventListener("click", () =>{
+            
+        });
     });
+
     document.getElementById("addNewSteg").addEventListener("click", () =>{
-        document.getElementById("stegList").innerHTML += "<li>" + "<input type=steg>" + "</li>"
-        document.getElementById("stegList").innerHTML += "<button id=deleteSteg>"+ "- tar bort steg"+"</button>"
+        let liItem = document.createElement("li");
+        
+        let inputItem = document.createElement("input");
+        inputItem.setAttribute("type", "text");
+        inputItem.setAttribute("name", "steg");
+
+        let ButtonItem = document.createElement("button");
+        ButtonItem.appendChild(document.createTextNode("- tar bort steg"));
+        ButtonItem.setAttribute("id","deleteSteg");
+
+
+        liItem.appendChild(inputItem);
+        let currentOl = document.getElementById("stegList");
+        document.getElementById("stegList").appendChild(liItem, currentOl);
+        document.getElementById("stegList").appendChild(ButtonItem, currentOl);
+        
+
+        document.getElementById("deleteSteg").addEventListener("click", () =>{
+            
+        });
     });
+
 }
 
 function logOut(){
@@ -155,10 +192,30 @@ function adminDeleteUser(){
 
 function createRecipe(){
     let createReciptForm = document.getElementById("createRecipt");
-    var x = document.getElementById("KategoriItems");
-    var i = x.selectedIndex;
+    let x = document.getElementById("KategoriItems");
+    let i = x.selectedIndex;
+    let ingrediensString;
+    let stegString;
 
+    for (var j = 0; j < createReciptForm.ingrediens.length; j++){
+        if(j == 0){
+            ingrediensString = createReciptForm.ingrediens[j].value;
+            ingrediensString += ",";
+        }else{
+            ingrediensString += createReciptForm.ingrediens[j].value;
+            ingrediensString += ",";
+        }
+    }
 
+    for (var j = 0; j < createReciptForm.steg.length; j++){
+        if(j == 0){
+            stegString = createReciptForm.steg[j].value;
+            stegString += ",";
+        }else{
+            stegString += createReciptForm.steg[j].value;
+            stegString += ",";
+        }
+    }
 
     let recipeData = {
         "title": createReciptForm.title.value,
@@ -167,8 +224,8 @@ function createRecipe(){
         "tid": createReciptForm.tid.value,
         "imgPath": createReciptForm.img.value,
         "nutritionalValue": createReciptForm.näringsvärde.value,
-        "IngredientInfo":"w,e,r,t,y,u,i,o",
-        "steg":"a,b,c,d,e,f,g,h,i,g,k",
+        "IngredientInfo": ingrediensString,
+        "steg":stegString,
         "description": createReciptForm.Beskrivning.value
     };
 
@@ -189,5 +246,4 @@ function createRecipe(){
         .catch((e) => {
             // error in e.message
     });
-    console.log(createReciptForm.img.value);
 }
