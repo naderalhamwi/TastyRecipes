@@ -26,7 +26,7 @@ public class Recipe {
     
     private List comments;
 
-    public Recipe(String title, String userName, String nutritionalValue, String description, String category, String imgPath, String IngredientInfo, int reciptId, int likes, String steg, List comments) {
+    public Recipe(String title, String userName, String nutritionalValue, String description, String category, String imgPath, String IngredientInfo, int reciptId, int likes, String steg) {
         this.title = title;
         this.userName = userName;
         this.nutritionalValue = nutritionalValue;
@@ -37,9 +37,20 @@ public class Recipe {
         this.reciptId = reciptId;
         this.likes = likes;
         this.steg = steg;
-        this.comments = comments;
     }
 
+    public Recipe(String title, String userName, String nutritionalValue, String description, String category, String imgPath,  int reciptId, int likes) {
+        this.title = title;
+        this.userName = userName;
+        this.nutritionalValue = nutritionalValue;
+        this.description = description;
+        this.category = category;
+        this.imgPath = imgPath;
+        this.reciptId = reciptId;
+        this.likes = likes;
+    }
+
+    
     public String getTitle() {
         return title;
     }

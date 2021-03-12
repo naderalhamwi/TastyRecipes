@@ -1,13 +1,28 @@
 let editAccount;
+let action = 1;
 window.onload= init;
+
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
 
 async function init(){
     editAccount = document.getElementById("editAccount");
     
-    document.getElementById("userName").innerText = sessionStorage.getItem("userName");
+    if(sessionStorage.getItem("userName").length >= 10){
+        document.getElementById("userName").innerText = sessionStorage.getItem("userName").substring(0, 10) + "...";
+    }else{
+        document.getElementById("userName").innerText = sessionStorage.getItem("userName");
+    }
+    
     document.getElementById("logoutbutton").addEventListener("click", logOut);
     document.getElementById("editUserDataButton").addEventListener("click", adminChangeUserData);
     document.getElementById("createReciptButton").addEventListener("click", createRecipe);
+    document.getElementById("searchButton").addEventListener("click", searchRecept);
     document.getElementById("deleteUserButton").addEventListener("click", adminDeleteUser);
     document.getElementById("changeUserDataButton").addEventListener("click", changeUserData);
 
@@ -21,7 +36,6 @@ async function init(){
 
     }else{
         editAccount.userName.value = sessionStorage.getItem("userName");
-        document.getElementById("profileLink").setAttribute('href', 'profile.html');
         if(sessionStorage.getItem("adminSatus") == true){
             document.getElementById("adminEditAccount").style.display = "block";
         } else{
@@ -36,49 +50,76 @@ async function init(){
 
     document.getElementById("addNewIngredens").addEventListener("click", () =>{
         let liItem = document.createElement("li");
+        let br = document.createElement("br");
+        let inputItem = document.createElement("input"); 
+        let ButtonItem = document.createElement("button");
         
-        let inputItem = document.createElement("input");
         inputItem.setAttribute("type", "text");
         inputItem.setAttribute("name", "ingrediens");
 
-        let ButtonItem = document.createElement("button");
         ButtonItem.appendChild(document.createTextNode("- tar bort ingrediens"));
         ButtonItem.setAttribute("id","deleteIngredens");
 
 
         liItem.appendChild(inputItem);
+        liItem.appendChild(br);
+        liItem.appendChild(ButtonItem);
         let currentOl = document.getElementById("ingrediensList");
         document.getElementById("ingrediensList").appendChild(liItem, currentOl);
-        document.getElementById("ingrediensList").appendChild(ButtonItem, currentOl);
 
-        document.getElementById("deleteIngredens").addEventListener("click", () =>{
-            
+        
+        document.getElementById("ingrediensList").addEventListener('click',function(e){
+            if(e.target.nodeName == "BUTTON"){
+                let length = document.querySelectorAll('li').length;
+                if(length > 1){
+                    let remove = e.target.parentNode;
+                    remove.parentNode.removeChild(remove);
+                }
+            }
         });
     });
 
     document.getElementById("addNewSteg").addEventListener("click", () =>{
-        let liItem = document.createElement("li");
-        
+        let liSteg = document.createElement("li");
+        let br = document.createElement("br");
+        let ButtonItem = document.createElement("button");
         let inputItem = document.createElement("input");
+        
         inputItem.setAttribute("type", "text");
         inputItem.setAttribute("name", "steg");
 
-        let ButtonItem = document.createElement("button");
         ButtonItem.appendChild(document.createTextNode("- tar bort steg"));
         ButtonItem.setAttribute("id","deleteSteg");
 
 
-        liItem.appendChild(inputItem);
+        liSteg.appendChild(inputItem);
+        liSteg.appendChild(br);
+        liSteg.appendChild(ButtonItem);
         let currentOl = document.getElementById("stegList");
-        document.getElementById("stegList").appendChild(liItem, currentOl);
-        document.getElementById("stegList").appendChild(ButtonItem, currentOl);
+        document.getElementById("stegList").appendChild(liSteg, currentOl);
         
 
-        document.getElementById("deleteSteg").addEventListener("click", () =>{
-            
+        document.getElementById("stegList").addEventListener('click',function(e){
+            if(e.target.nodeName == "BUTTON"){
+                let length = document.querySelectorAll('li').length;
+                if(length > 1){
+                    let remove = e.target.parentNode;
+                    remove.parentNode.removeChild(remove);
+                }
+            }
         });
     });
 
+    
+}
+function openNav() {
+    if ( action == 1 ) {
+        document.getElementById("mySidenav").style.width = "150px";
+        action = 2;
+    } else {
+        document.getElementById("mySidenav").style.width = "0px";
+        action = 1;
+    }
 }
 
 function logOut(){
@@ -189,61 +230,166 @@ function adminDeleteUser(){
     }
 }
 
-
-function createRecipe(){
+ async function createRecipe(){
     let createReciptForm = document.getElementById("createRecipt");
     let x = document.getElementById("KategoriItems");
     let i = x.selectedIndex;
     let ingrediensString;
     let stegString;
 
-    for (var j = 0; j < createReciptForm.ingrediens.length; j++){
-        if(j == 0){
-            ingrediensString = createReciptForm.ingrediens[j].value;
-            ingrediensString += ",";
-        }else{
-            ingrediensString += createReciptForm.ingrediens[j].value;
-            ingrediensString += ",";
+    var file = createReciptForm.img.files[0];
+    console.log(toBase64(file));
+    let g = await toBase64(file);
+
+    try {
+            for (var j = 0; j < createReciptForm.ingrediens.length; j++){
+                if(j == 0){
+                    ingrediensString = createReciptForm.ingrediens[j].value;
+                    ingrediensString += ",";
+                }else{
+                    ingrediensString += createReciptForm.ingrediens[j].value;
+                    ingrediensString += ",";
+                }
+            }
+            for (var j = 0; j < createReciptForm.steg.length; j++){
+                if(j == 0){
+                    stegString = createReciptForm.steg[j].value;
+                    stegString += ",";
+                }else{
+                    stegString += createReciptForm.steg[j].value;
+                    stegString += ",";
+                }
+            }
+
+            let recipeData = {
+            "title": createReciptForm.title.value,
+            "userName": sessionStorage.getItem("userName"),
+            "category": x.options[i].text,
+            "tid": createReciptForm.tid.value,
+            "imgPath": g,
+            "nutritionalValue": createReciptForm.näringsvärde.value,
+            "IngredientInfo": ingrediensString,
+            "steg":stegString,
+            "description": createReciptForm.Beskrivning.value
+        };
+        
+        fetch('http://localhost:8080/Backend/resources/recipe/create', {
+            method: "POST",
+            mode: 'cors',
+            headers: {  
+                'Content-Type': 'text/plain'
+            },
+            body: JSON.stringify(recipeData)
+        })
+            .then((response) => {
+                alert("Receptet har skapat")
+                location.reload();
+                return response.json(); // or .text() or .blob() ...
+            })
+            .then((text) => {
+                // text is the response body
+            })
+            .catch((e) => {
+                // error in e.message
+            });
+    } catch (error) {
+        if(!createReciptForm.title.value.trim().length){
+            console.log("title");
+        }
+        else if(!createReciptForm.tid.value.trim().length){
+            console.log("tid");
+        }
+        else if(!createReciptForm.img.value.trim().length){
+            console.log("img");
+        }
+        else if(!createReciptForm.näringsvärde.value.trim().length){
+            console.log("näringsvärde");
+        }
+        else if(!createReciptForm.Beskrivning.value.trim().length){
+            console.log("Beskrivning");
         }
     }
+}
 
-    for (var j = 0; j < createReciptForm.steg.length; j++){
-        if(j == 0){
-            stegString = createReciptForm.steg[j].value;
-            stegString += ",";
-        }else{
-            stegString += createReciptForm.steg[j].value;
-            stegString += ",";
-        }
-    }
+function searchRecept(){
+    let searchform = document.getElementById("searchForm");
+    let searchWord = searchform.searchBar.value.trim();
 
-    let recipeData = {
-        "title": createReciptForm.title.value,
-        "userName": sessionStorage.getItem("userName"),
-        "category": x.options[i].text,
-        "tid": createReciptForm.tid.value,
-        "imgPath": createReciptForm.img.value,
-        "nutritionalValue": createReciptForm.näringsvärde.value,
-        "IngredientInfo": ingrediensString,
-        "steg":stegString,
-        "description": createReciptForm.Beskrivning.value
-    };
+    let main = document.getElementById("main");
 
-    fetch('http://localhost:8080/Backend/resources/recipe/create', {
-        method: "POST",
-        mode: 'cors',
-        headers: {  
-            'Content-Type': 'text/plain'
-        },
-        body: JSON.stringify(recipeData)
+    if(!searchform.searchBar.value.trim()){
+        alert("Du söker med tom fält !")
+    }else{
+        fetch('http://localhost:8080/Backend/resources/recipe/search', {
+            method: "GET",
+            mode: 'cors',
+            headers: {  
+                'title': searchWord
+            }
         })
         .then((response) => {
-            return response.json(); // or .text() or .blob() ...
+            document.getElementById("searchWord").innerText = "Din sökning på : " + searchWord;
+            return response.json();
         })
-        .then((text) => {
-            // text is the response body
+        .then((data) => {
+            if(!data.length){
+                document.getElementById("searchWord").innerText = "Din sökning på : " + searchWord + " gav inga resultat";
+            }else{
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    let div = document.createElement("div");
+                    let descriptionText = document.createElement("p");
+                    let userNameText = document.createElement("p");
+                    let titleText = document.createElement("h1");
+                    let img = document.createElement("img");
+                    
+                    img.src = "\\" + data[i].imgPath;
+                    titleText.innerText += data[i].title;
+                    userNameText.innerText += " skapades av: " + data[i].userName;
+                    descriptionText.innerText += data[i].description;
+        
+                    div.appendChild(titleText);
+                    div.appendChild(img);
+                    div.appendChild(descriptionText);
+                    div.appendChild(userNameText);
+        
+                    main.appendChild(div);
+    
+                }
+            }
         })
         .catch((e) => {
-            // error in e.message
-    });
+            console.log(e);
+        });
+    }
 }
+
+/*
+
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readasdataurl(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
+async function main (){
+    const file = document.querySelector().files[0];
+    imgData = await toBase64(file);
+    imgData = json.stringify(imgData)
+    i = imgData.indexOf(",")
+
+    console.log(imgData.substring(i).charAt(303952))
+    const response = await fetch (url, {
+        method:"",
+        mode:"",
+        headers:{
+
+        }, 
+        body: JSON.stringify(imgData)
+    }).then(data => {
+        console.log(data)
+    }).catch(error => console.log(""));
+    return response;
+}*/
+

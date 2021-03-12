@@ -4,34 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/de05059076.js" crossorigin="anonymous"></script>
     <Script src="/JS_Files/app.js" crossorigin="anonymous"></Script>
+    <link rel="stylesheet" href="/Css_Files/General.css">
     <title>searched Recipes</title>
 </head>
 <body>
     <header>
         <a href="Home.html"><img src="/imges/Untitled-2.png" alt="Logo"></a>
         <form id="searchForm">
-            <fieldset>
-                <input type="search" name="searchBar" onsubmit="return false">
-                <input type="submit" value="Sök">
-            </fieldset>
+            <input type="search" name="searchBar">
+            <input type="button" value="Sök" id="searchButton">
         </form>
-        <button id="loginRegister" >login/register</button>
-        <p id="userName"></p>
-        <nav id="main-menu" class="main-menu">
-            <i class="fas fa-bars">
+        <div class="divuserInlog">
+            <button id="loginRegister">login/register</button>
+            <p id="userName"></p>
+        </div>
+        <i onclick="openNav()">&#9776</i>
+        <nav id="mySidenav" class="sidenav">
             <ul>
+                <a class="closebtn" onclick="openNav()">&times</a>
                 <hr>
-                <li><button id="logoutbutton">Logga out</button></li><hr>
-                <li><a id="profileLink">min profile</a></li><hr>
+                <li><a id="logoutbutton">Logga out</a></li><hr>
+                <li><a id="profileLink">Min profile</a></li><hr>
                 <p>kategori</p><hr>
-                <li><a href="#">Kött</a></li><hr>
-                <li><a href="#">Grönt</a></li><hr>
-                <li><a href="#">Sött</a></li><hr>
-                <li><a href="#">Fisk</a></li>
+                <ul id="categoryOptions">
+                    <li>Kött</li>
+                    <li>Grön</li>
+                    <li>Sött</li>
+                    <li>Fisk</li>
+                </ul>
                 <hr>
             </ul>
-            </i>
         </nav>
     </header>
     <section id="accountForms">
@@ -83,39 +87,8 @@
             </div>
         </section>
     </aside>
-    <main>
-        <div>
-            <p>resultat av din sökning på: k</p>
-        </div>
-        <div>
-            <p>Creamy Cannellini Soup</p>
-            <p>
-                Supergod marängtårta med citronkräm. Söta krispiga marängbottnar med en len och underbar citronsmörkräm mellan. Tårtan toppas sedan med vispad grädde och choklad. En klar favorit som går hem i alla åldrar! 
-                Supergod marängtårta med citronkräm. Söta krispiga marängbottnar med en len och underbar citronsmörkräm mellan. Tårtan toppas sedan med vispad grädde och choklad. En klar favorit som går hem i alla åldrar! 
-            </p>
-            <img src="" alt="">
-            <p>Skapat av: Tim</p>
-        </div>
-        <div>
-            <p>Creamy Cannellini Soup</p>
-            <p>
-                Supergod marängtårta med citronkräm. Söta krispiga marängbottnar med en len och underbar citronsmörkräm mellan. Tårtan toppas sedan med vispad grädde och choklad. En klar favorit som går hem i alla åldrar! 
-                Supergod marängtårta med citronkräm. Söta krispiga marängbottnar med en len och underbar citronsmörkräm mellan. Tårtan toppas sedan med vispad grädde och choklad. En klar favorit som går hem i alla åldrar! 
-            </p>
-            <img src="" alt="">
-            <p>Skapat av: Nader</p>
-        </div>
-        <div>
-            <p>Creamy Cannellini Soup</p>
-            <p>
-                Supergod marängtårta med citronkräm. Söta krispiga marängbottnar med en len och underbar citronsmörkräm mellan. Tårtan toppas sedan med vispad grädde och choklad. En klar favorit som går hem i alla åldrar! 
-                Supergod marängtårta med citronkräm. Söta krispiga marängbottnar med en len och underbar citronsmörkräm mellan. Tårtan toppas sedan med vispad grädde och choklad. En klar favorit som går hem i alla åldrar! 
-            </p>
-            <img src="" alt="">
-            <p>Skapat av: David</p>
-        </div>
+    <main id="main" role="main">
     </main>
-
     <footer>
         <p>ContactUs Phone Number: 04273837620. EmailAdres: TastyRecipes</p>
     </footer>

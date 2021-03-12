@@ -1,19 +1,21 @@
 
 var logInForm; 
 var createAcc; 
-var action = 1; 
 let searchForm;
+let searchWord;
+var action = 1; 
 
 async function init(){
+    document.getElementById("accountForms").style.display = "none";
     logInForm = document.getElementById("logIn");  
     logInForm.addEventListener("submit", logIn);  
 
     createAcc = document.getElementById("createAcc");  
    createAcc.addEventListener("submit", createAccount);
    
-
+   document.getElementById("searchButton").addEventListener("click", searchRecept);
+   document.getElementById("userName").innerText = sessionStorage.getItem("userName");
     document.getElementById("logoutbutton").addEventListener("click", logOut);
-    document.getElementById("accountForms").style.display = "none";
     document.getElementById("loginRegister").addEventListener("click", ()=>{
         if ( action == 1 ) {
             document.getElementById("accountForms").style.display = "block";
@@ -23,7 +25,8 @@ async function init(){
             action = 1;
         }
     });
-    document.getElementById("userName").innerText = sessionStorage.getItem("userName");
+
+  
 
     if(sessionStorage.getItem("userName") == null){
         document.getElementById("loginRegister").style.display = "block";
@@ -35,7 +38,23 @@ async function init(){
         document.getElementById("loginRegister").style.display = "none";
         document.getElementById("profileLink").setAttribute('href', 'profile.html');
     }
+
+
+    if(window.location.href.match("/HTML_Files/searchedRecipes.html")){
+        let categoryOptions = document.getElementById("categoryOptions");
+    
+        for (let b = 0; b < categoryOptions.childNodes.length; b++) {
+            if(categoryOptions.childNodes[b].nodeName == "LI"){
+                categoryOptions.childNodes[b].addEventListener("click", () =>{
+                    let category = categoryOptions.childNodes[b].innerText;
+                    searchReceptCategory(category);
+                });
+            }
+        }
+    }
+
 }window.onload = init;
+
 
 function logIn(){
     let name = logInForm.userName.value;
@@ -108,3 +127,177 @@ function createAccount(){
             console.log(err);
     });
 }
+
+function openNav() {
+    if ( action == 1 ) {
+        document.getElementById("mySidenav").style.width = "150px";
+        action = 2;
+    } else {
+        document.getElementById("mySidenav").style.width = "0px";
+        action = 1;
+    }
+}
+
+async function searchRecept(){
+    let searchform = document.getElementById("searchForm");
+    let searchWord = searchform.searchBar.value.trim();
+
+    let main = document.getElementById("main");
+    
+
+    if(!searchform.searchBar.value.trim()){
+        alert("Du söker med tom fält !")
+    }else{
+        fetch('http://localhost:8080/Backend/resources/recipe/search', {
+            method: "GET",
+            mode: 'cors',
+            headers: {  
+                'title': searchWord
+            }
+        })
+        .then((response) => {
+            main.innerHTML= "";
+            let p = document.createElement("p");
+            p.innerHTML = "Din sökning på : " + searchWord;
+            main.appendChild(p);
+            return response.json();
+        })
+        .then((data) => {
+            if(!data.length){
+                main.innerHTML= "";
+                let p = document.createElement("p");
+                p.innerHTML = "Din sökning på : " + searchWord + " gav inga resultat";
+                main.appendChild(p);
+            }else{
+                for (let i = 0; i < data.length; i++) {
+                    let div = document.createElement("div");
+                    let descriptionText = document.createElement("p");
+                    let userNameText = document.createElement("p");
+                    let titleText = document.createElement("h1");
+                    let img = document.createElement("img");
+                    
+                    img.src = "\\" + data[i].imgPath;
+                    titleText.innerText += data[i].title;
+                    userNameText.innerText += " skapades av: " + data[i].userName;
+                    descriptionText.innerText += data[i].description;
+        
+                    div.appendChild(titleText);
+                    div.appendChild(img);
+                    div.appendChild(descriptionText);
+                    div.appendChild(userNameText);
+        
+                    main.appendChild(div);
+                }
+            }
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+}
+
+function searchReceptCategory(categoryValue){
+    let main = document.getElementById("main");
+    fetch('http://localhost:8080/Backend/resources/recipe/search/category', {
+        method: "GET",
+        mode: 'cors',
+        headers: {  
+            'title': categoryValue
+        }
+    })
+    .then((response) => {
+        main.innerHTML= "";
+            let p = document.createElement("p");
+            p.innerHTML = "Din sökning på : " + categoryValue;
+            main.appendChild(p);
+        return response.json();
+    })
+    .then((data) => {
+        if(!data.length){
+            main.innerHTML= "";
+            let p = document.createElement("p");
+            p.innerHTML = "Din sökning på : " + categoryValue + " gav inga resultat";
+            main.appendChild(p);
+        }else{
+            for (let i = 0; i < data.length; i++) {
+                let div = document.createElement("div");
+                let descriptionText = document.createElement("p");
+                let userNameText = document.createElement("p");
+                let titleText = document.createElement("h1");
+                let img = document.createElement("img");
+                
+                img.src = "\\" + data[i].imgPath;
+                titleText.innerText += data[i].title;
+                userNameText.innerText += " skapades av: " + data[i].userName;
+                descriptionText.innerText += data[i].description;
+    
+                div.appendChild(titleText);
+                div.appendChild(img);
+                div.appendChild(descriptionText);
+                div.appendChild(userNameText);
+    
+                main.appendChild(div);
+
+            }
+        }
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+}
+        
+    
+
+
+  /**async function searchRecept(){
+    let searchform = document.getElementById("searchForm");
+    let searchWord = searchform.searchBar.value.trim();
+
+    let main = document.getElementById("main");
+
+    if(!searchform.searchBar.value.trim()){
+        alert("Du söker med tom fält !")
+    }else{
+        fetch('http://localhost:8080/Backend/resources/recipe/search', {
+            method: "GET",
+            mode: 'cors',
+            headers: {  
+                'title': searchWord
+            }
+        })
+        .then((response) => {
+            window.location.href = "/HTML_Files/searchedRecipes.html";
+            document.getElementById("searchWord").innerText = "Din sökning på : " + searchWord;
+            return response.json();
+        })
+        .then((data) => {
+            if(!data.length){
+                document.getElementById("searchWord").innerText = "Din sökning på : " + searchWord + " gav inga resultat";
+            }else{
+                for (let i = 0; i < data.length; i++) {
+                    let div = document.createElement("div");
+                    let descriptionText = document.createElement("p");
+                    let userNameText = document.createElement("p");
+                    let titleText = document.createElement("h1");
+                    let img = document.createElement("img");
+                    
+                    img.src = "\\" + data[i].imgPath;
+                    titleText.innerText += data[i].title;
+                    userNameText.innerText += " skapades av: " + data[i].userName;
+                    descriptionText.innerText += data[i].description;
+        
+                    div.appendChild(titleText);
+                    div.appendChild(img);
+                    div.appendChild(descriptionText);
+                    div.appendChild(userNameText);
+        
+                    main.appendChild(div);
+    
+                }
+            }
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+} */

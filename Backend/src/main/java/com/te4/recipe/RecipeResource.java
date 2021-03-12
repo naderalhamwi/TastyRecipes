@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.te4.user.User;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
@@ -30,11 +32,8 @@ public class RecipeResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public Response createRecipe(String recipeData){
         
-        System.out.println(recipeData);
-        
         Gson gson = new Gson();
         Recipe recipe = gson.fromJson(recipeData, Recipe.class);
-        
         
         if(recipeBean.createRecipe(recipe) >= 1){
            return Response.status(Response.Status.CREATED).build();
@@ -42,4 +41,25 @@ public class RecipeResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
+    
+    @Path("/search")
+    @GET
+    public Response searchRecepi(@HeaderParam("title")String recipeData){
+       if(recipeBean.searchRecipe(recipeData) != null){
+           return Response.accepted(recipeBean.searchRecipe(recipeData)).build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+    
+    @Path("/search/category")
+    @GET
+    public Response searchRecipeCategory(@HeaderParam("title")String recipeData){
+       if(recipeBean.searchRecipeCategory(recipeData) != null){
+           return Response.accepted(recipeBean.searchRecipeCategory(recipeData)).build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+    
 }
