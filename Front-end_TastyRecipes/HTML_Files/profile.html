@@ -12,11 +12,7 @@
 <body>
     <header>
         <a href="Home.html"><img src="/imges/Untitled-2.png" alt="Logo"></a>
-        <form id="searchForm">
-            <input type="search" name="searchBar">
-            <input type="button" value="Sök" id="searchButton">
-        </form>
-        <div class="divuserInlog">
+        <div class="divUserInlog">
             <p id="userName"></p>
         </div>
         <i onclick="openNav()">&#9776</i>
@@ -30,9 +26,10 @@
             </ul>
         </nav>
     </header>
-    <section id="myRecipes">myRecipes</section>
+    <section id="myRecipes"></section>
     <form id="editAccount" method="POST" onsubmit="return false">
         <fieldset>
+            <hr>
             <label for="editUserName">Användarnamn</label>
             <input type="text" name="userName" id="editUserName" disabled>
             <label for="editEmail">Mail</label>
@@ -40,22 +37,24 @@
             <label for="createAccPassword">Lösenord</label>
             <input type="password" name="password" id="createAccPassword">
             <input type="submit" value="Ändra uppgifter" id="changeUserDataButton" class="buttons">
+            <hr>
         </fieldset>
     </form>
     <form id="adminEditAccount" method="POST" onsubmit="return false" >
         <fieldset>
+            <hr>
             <label for="searchUser">sök efter användaren</label>
             <input type="search" id="searchUserButton" name="searchUserinput"><br>
-
+            <hr>
             <label for="createAccUserName">Användarnamn</label>
             <input type="text" name="userName" id="adminEditUserName" disabled>
             <label for="createAccEmail">Mail</label>
             <input type="email" name="email" id="adminEditEmail">
             <label for="createAccPassword">Lösenord</label>
             <input type="password" name="password" id="adminEditPassword">
-
             <input type="button" id="editUserDataButton" value="ändra" class="buttons">
             <input type="button" id="deleteUserButton" value="tar bort" class="buttons">
+            <hr>
         </fieldset>
     </form>
     <form id="createRecipt" method="POST" onsubmit="return false">
@@ -80,18 +79,18 @@
             <input type="text" name="Beskrivning"><br>
             <label for="ingredienser">ingredienser *</label>
             <ol type="1" id="ingrediensList"></ol>
-            <button id="addNewIngredens">+nytt ingrediens</button><br>
+            <button id="addNewIngredens">+nytt ingrediens</button>
             <label for="stegs">steg *</label>
             <ol type="1" id="stegList"></ol>
-            <button id="addNewSteg">+nytt steg</button><br>
-            <input type="button" value="lägg till nytt recipt" id="createReciptButton">
-            <input type="button" value="tar bort recept" id="deleteRecipeButton">
-            <input type="button" value="ändra recept" id="editRecipeButton">
+            <button id="addNewSteg">+nytt steg</button>
+            <hr>
+            <input type="button" value="lägg till nytt recipt" id="createReciptButton"><br>
+            <input type="button" value="tar bort recept" id="deleteRecipeButton"><br>   
+            <input type="button" value="ändra recept" id="editRecipeButton"><br>
         </fieldset>
     </form>
     <footer>
         <p>ContactUs Phone Number: 04273837620. EmailAdres: TastyRecipes</p>
     </footer>
-
 </body>
 </html>

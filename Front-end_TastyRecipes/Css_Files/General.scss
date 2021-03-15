@@ -1,155 +1,177 @@
 
-    body{
+body{
+    padding: 0;
+    margin: 0;
+}
+header{
+    padding: 0;
+    margin: 0;
+    color: white;
+    display: grid;
+    background-color: rgb(50, 50, 50);
+    grid-template-columns: 20% 70% 10%;
+    grid-template-rows: auto auto auto;
+    .divUserInlog{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: 0;
         margin: 0;
     }
-    header{
+    a{
+        display: flex;
         padding: 0;
         margin: 0;
-        color: white;
-        display: grid;
-        background-color: rgb(50, 50, 50);
-        grid-template-columns: 20% 70% 10%;
-        grid-template-rows: auto auto auto;
-        .divuserInlog{
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        img{
+            width: 100%;
+            height: auto;
             padding: 0;
             margin: 0;
+        }
+    }
+    i{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    form{
+        grid-column: 1 / span 3;
+        grid-row: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1%;
+        margin: 0;
+    }
+    nav{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        ul{
+            list-style : none;
+            padding: 0;
+            li{
+                cursor: pointer;
+            }
         }
         a{
-            display: flex;
-            padding: 0;
-            margin: 0;
-            img{
-                width: 100%;
-                height: auto;
-                padding: 0;
-                margin: 0;
-            }
-        }
-        i{
-            display: flex;
-            justify-content: center;
-            align-items: center;
             cursor: pointer;
-        }
-        form{
-            grid-column: 1 / span 3;
-            grid-row: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1%;
-            margin: 0;
-        }
-        nav{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-            margin: 0;
-            text-align: center;
-            ul{
-                list-style : none;
-                padding: 0;
-                li{
-                    cursor: pointer;
-                }
-            }
-            a{
-                cursor: pointer;
-                color: white;
-                text-decoration: none;
-            }
-        }
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            right: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-            color: #FFC42E;
-        }
-        
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
+            color: white;
+            text-decoration: none;
         }
     }
-    .buttons{
+    ul{
+        list-style : none;
+        li{
+            cursor: pointer;
+            &:hover{
+                color: #FFC42E;
+            }
+        }
+    }
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        color: #FFC42E;
+    }
+    
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+    #loginRegister{
+        display: none;
+    }
+}
+.buttons{
+    border: none;
+    background-color:rgb(50, 50, 50);
+    color:white;
+    width:auto;
+    height: auto;
+}
+#adminEditAccount{
+    display: none;
+}
+#editAccount, #adminEditAccount{
+    fieldset{
         border: none;
-        background-color:rgb(50, 50, 50);
-        color:white;
-        width:auto;
-        height: auto;
-    }
-    #editAccount, #adminEditAccount{
-        fieldset{
-            border: none;
-            text-align: center;
-            label{
-                display: inline-block;
-            }
-            input{
-                margin: auto;
-                display: block;
-            }
-        }
-    }
-    #createRecipt{
-        fieldset{
-            border: none;
-            label{
-                display: block;
-            }
-            input{
-                display: block;
-            }
-        }
-    }
-    main{
         text-align: center;
-        .infoText{
-            margin: 0 30%  0 30%;
-            div{
-                background-color: rgb(50, 50, 50);
-                margin: 0;
-                padding: 0;
-                height: 60px;
-                p{
-                    background-color: rgba(44, 44, 44, 0);
-                    margin-top: 3%;
-                    text-align: center;
-                    color:#FFC42E;
-                }
-            }
+        label{
+            display: inline-block;
+        }
+        input{
+            margin: auto;
+            display: block;
+        }
+    }
+}
+#createRecipt{
+    fieldset{
+        border: none;
+        label{
+            display: block;
+        }
+        input{
+            display: block;
+        }
+    }
+}
+main{
+    text-align: center;
+    .infoText{
+        margin: 0 30%  0 30%;
+        div{
+            background-color: rgb(50, 50, 50);
+            margin: 0;
+            padding: 0;
+            height: 60px;
             p{
-                margin: 0;
-                padding: 0;
-                background-color: #E5E5E5;
-                
+                background-color: rgba(44, 44, 44, 0);
+                margin-top: 3%;
+                text-align: center;
+                color:#FFC42E;
             }
         }
-    }
-    #main{
-        img{
-            width: 50%;
-            height: 50%;
+        p{
+            margin: 0;
+            padding: 0;
+            background-color: #E5E5E5;
         }
     }
+}
+#main{
+    img{
+        width: 50%;
+        height: 50%;
+    }
+}
+footer{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+    background-color: rgb(29, 29, 29);
+}
 @media only screen and (min-width: 800px){
     header{
-        grid-template-columns: 10% 80% 5% 5%;
+        grid-template-columns: 10% 85% 5% ;
         grid-template-rows: auto;
         form{
             display: flex;
@@ -189,9 +211,4 @@
             }
         }
     }
-}
-
-footer{
-    color: white;
-    background-color: rgb(29, 29, 29);
 }

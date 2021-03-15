@@ -13,7 +13,7 @@ async function init(){
     createAcc = document.getElementById("createAcc");  
    createAcc.addEventListener("submit", createAccount);
    
-   document.getElementById("searchButton").addEventListener("click", searchRecept);
+   
    document.getElementById("userName").innerText = sessionStorage.getItem("userName");
     document.getElementById("logoutbutton").addEventListener("click", logOut);
     document.getElementById("loginRegister").addEventListener("click", ()=>{
@@ -26,12 +26,10 @@ async function init(){
         }
     });
 
-  
-
     if(sessionStorage.getItem("userName") == null){
         document.getElementById("loginRegister").style.display = "block";
-        document.getElementById("profileLink").disabled  = true;
-        document.getElementById("logoutbutton").disabled  = true;
+        document.getElementById("profileLink").style.display  = "none";
+        document.getElementById("logoutbutton").style.display  = "none";
     }else{
         logInForm.elements[0].disabled  = true;
         createAcc.elements[0].disabled  = true;
@@ -51,6 +49,12 @@ async function init(){
                 });
             }
         }
+    }
+
+    if(window.location.href.match("/HTML_Files/searchedRecipes.html")){
+        document.getElementById("searchButton").addEventListener("click", searchRecept);
+        document.getElementById("header").style.gridTemplateColumns = "10% 80% 5% 5%";
+        document.getElementById("header").style.gridTemplateRows = "auto auto";
     }
 
 }window.onload = init;
@@ -92,7 +96,7 @@ function logIn(){
 function logOut(){
     sessionStorage.removeItem("userName"); 
     sessionStorage.removeItem("adminSatus");  
-    location.reload();  
+    location.reload(); 
 }
 
 function createAccount(){

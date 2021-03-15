@@ -5,33 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <Script src="/JS_Files/app.js" crossorigin="anonymous"></Script>
+    <link rel="stylesheet" href="/Css_Files/General.css">
     <title>Viewed Recipes</title>
 </head>
 <body>
     <header>
         <a href="Home.html"><img src="/imges/Untitled-2.png" alt="Logo"></a>
-        <form id="searchForm">
-            <fieldset>
-                <input type="search" name="searchBar" onsubmit="return false">
-                <input type="submit" value="Sök">
-            </fieldset>
-        </form>
         <button id="loginRegister" >login/register</button>
         <p id="userName"></p>
-        <nav id="main-menu" class="main-menu">
-            <i class="fas fa-bars">
+        <nav id="mySidenav" class="sidenav">
             <ul>
+                <a class="closebtn" onclick="openNav()">&times</a>
                 <hr>
-                <li><button id="logoutbutton">Logga out</button></li><hr>
-                <li><a id="profileLink">min profile</a></li><hr>
-                <p>kategori</p><hr>
-                <li><a href="#">Kött</a></li><hr>
-                <li><a href="#">Grönt</a></li><hr>
-                <li><a href="#">Sött</a></li><hr>
-                <li><a href="#">Fisk</a></li>
+                <li><a id="logoutbutton">Logga out</a></li><hr>
+                <li><a id="profileLink">Min profile</a></li><hr>
+                <li><a href="/HTML_Files/searchedRecipes.html">Search</a></li>
                 <hr>
             </ul>
-            </i>
         </nav>
     </header><section id="accountForms">
         <form id="logIn" method="GET" onsubmit="return false">

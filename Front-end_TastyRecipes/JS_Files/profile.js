@@ -22,7 +22,6 @@ async function init(){
     document.getElementById("logoutbutton").addEventListener("click", logOut);
     document.getElementById("editUserDataButton").addEventListener("click", adminChangeUserData);
     document.getElementById("createReciptButton").addEventListener("click", createRecipe);
-    document.getElementById("searchButton").addEventListener("click", searchRecept);
     document.getElementById("deleteUserButton").addEventListener("click", adminDeleteUser);
     document.getElementById("changeUserDataButton").addEventListener("click", changeUserData);
 
@@ -38,8 +37,6 @@ async function init(){
         editAccount.userName.value = sessionStorage.getItem("userName");
         if(sessionStorage.getItem("adminSatus") == true){
             document.getElementById("adminEditAccount").style.display = "block";
-        } else{
-            document.getElementById("adminEditAccount").style.display = "none";
         }
     }
 
@@ -62,9 +59,9 @@ async function init(){
 
 
         liItem.appendChild(inputItem);
-        liItem.appendChild(br);
         liItem.appendChild(ButtonItem);
         let currentOl = document.getElementById("ingrediensList");
+        currentOl.appendChild(br);
         document.getElementById("ingrediensList").appendChild(liItem, currentOl);
 
         
@@ -93,9 +90,9 @@ async function init(){
 
 
         liSteg.appendChild(inputItem);
-        liSteg.appendChild(br);
         liSteg.appendChild(ButtonItem);
         let currentOl = document.getElementById("stegList");
+        currentOl.appendChild(br);
         document.getElementById("stegList").appendChild(liSteg, currentOl);
         
 

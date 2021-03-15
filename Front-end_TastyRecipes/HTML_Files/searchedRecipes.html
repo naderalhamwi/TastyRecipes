@@ -10,13 +10,13 @@
     <title>searched Recipes</title>
 </head>
 <body>
-    <header>
+    <header id="header">
         <a href="Home.html"><img src="/imges/Untitled-2.png" alt="Logo"></a>
         <form id="searchForm">
             <input type="search" name="searchBar">
             <input type="button" value="Sök" id="searchButton">
         </form>
-        <div class="divuserInlog">
+        <div class="divUserInlog">
             <button id="loginRegister">login/register</button>
             <p id="userName"></p>
         </div>
@@ -27,16 +27,17 @@
                 <hr>
                 <li><a id="logoutbutton">Logga out</a></li><hr>
                 <li><a id="profileLink">Min profile</a></li><hr>
-                <p>kategori</p><hr>
-                <ul id="categoryOptions">
-                    <li>Kött</li>
-                    <li>Grön</li>
-                    <li>Sött</li>
-                    <li>Fisk</li>
-                </ul>
-                <hr>
             </ul>
         </nav>
+        <div>
+            <p>kategori</p>
+            <ul id="categoryOptions">
+                <li>Kött</li>
+                <li>Grön</li>
+                <li>Sött</li>
+                <li>Fisk</li>
+            </ul>
+        </div>
     </header>
     <section id="accountForms">
         <form id="logIn" method="GET" onsubmit="return false">
@@ -63,32 +64,8 @@
         </form>
     </section>
 
-    <aside>
-        <section>
-            <div>
-                <p>de senäste receptet</p>
-            </div>
-            <div>
-                <div>
-                    <p>Creamy Cannellini Soup</p>
-                    <img src="" alt="">
-                    <p>Skapat av: Tim</p>
-                </div>
-                <div>
-                    <p>Creamy Cannellini Soup</p>
-                    <img src="" alt="">
-                    <p>Skapat av: Nader</p>
-                </div>
-                <div>
-                    <p>Creamy Cannellini Soup</p>
-                    <img src="" alt="">
-                    <p>Skapat av: David</p>
-                </div>
-            </div>
-        </section>
-    </aside>
-    <main id="main" role="main">
-    </main>
+    <aside id="newestRecipes"></aside>
+    <main id="main" role="main"></main>
     <footer>
         <p>ContactUs Phone Number: 04273837620. EmailAdres: TastyRecipes</p>
     </footer>
