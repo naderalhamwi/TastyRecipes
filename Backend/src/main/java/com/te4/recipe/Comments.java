@@ -18,6 +18,24 @@ public class Comments {
     private String relatedUserName;
     private int parentId;
 
+    public Comments(String userName, String content, int commentId, String date, int receptId) {
+        this.userName = userName;
+        this.content = content;
+        this.commentId = commentId;
+        this.date = date;
+        this.receptId = receptId;
+    }
+
+    public Comments(String userName, String content, int commentId, String date, String relatedUserName, int parentId) {
+        this.userName = userName;
+        this.content = content;
+        this.commentId = commentId;
+        this.date = date;
+        this.relatedUserName = relatedUserName;
+        this.parentId = parentId;
+    }
+
+    
     public String getUserName() {
         return userName;
     }

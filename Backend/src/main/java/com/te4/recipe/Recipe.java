@@ -18,39 +18,45 @@ public class Recipe {
     private String description;
     private String category;
     private String imgPath;
+    private String time;
+    
     private String IngredientInfo;
     private String steg;
+    
+    private List IngredientInfoList;
+    private List stegList;
     
     private int reciptId;
     private int likes;
     
     private List comments;
+    private List replayComments;
 
-    public Recipe(String title, String userName, String nutritionalValue, String description, String category, String imgPath, String IngredientInfo, int reciptId, int likes, String steg) {
+    public Recipe(String title, String userName, String nutritionalValue, String description, String category, String imgPath, List IngredientInfo, List steg, List comments, List replayComments, String time,int reciptId,int likes) {
         this.title = title;
         this.userName = userName;
         this.nutritionalValue = nutritionalValue;
         this.description = description;
         this.category = category;
         this.imgPath = imgPath;
-        this.IngredientInfo = IngredientInfo;
+        this.IngredientInfoList = IngredientInfo;
+        this.stegList = steg;
+        this.comments = comments;
+        this.replayComments = replayComments;
+        this.time = time;
         this.reciptId = reciptId;
         this.likes = likes;
-        this.steg = steg;
+        
     }
 
-    public Recipe(String title, String userName, String nutritionalValue, String description, String category, String imgPath,  int reciptId, int likes) {
+    public Recipe(String title, String userName, String description, String imgPath, int reciptId) {
         this.title = title;
         this.userName = userName;
-        this.nutritionalValue = nutritionalValue;
         this.description = description;
-        this.category = category;
         this.imgPath = imgPath;
         this.reciptId = reciptId;
-        this.likes = likes;
     }
 
-    
     public String getTitle() {
         return title;
     }
@@ -99,12 +105,44 @@ public class Recipe {
         this.imgPath = imgPath;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public String getIngredientInfo() {
         return IngredientInfo;
     }
 
     public void setIngredientInfo(String IngredientInfo) {
         this.IngredientInfo = IngredientInfo;
+    }
+
+    public String getSteg() {
+        return steg;
+    }
+
+    public void setSteg(String steg) {
+        this.steg = steg;
+    }
+
+    public List getIngredientInfoList() {
+        return IngredientInfoList;
+    }
+
+    public void setIngredientInfoList(List IngredientInfoList) {
+        this.IngredientInfoList = IngredientInfoList;
+    }
+
+    public List getStegList() {
+        return stegList;
+    }
+
+    public void setStegList(List stegList) {
+        this.stegList = stegList;
     }
 
     public int getReciptId() {
@@ -123,14 +161,6 @@ public class Recipe {
         this.likes = likes;
     }
 
-    public String getSteg() {
-        return steg;
-    }
-
-    public void setSteg(String steg) {
-        this.steg = steg;
-    }
-
     public List getComments() {
         return comments;
     }
@@ -138,7 +168,15 @@ public class Recipe {
     public void setComments(List comments) {
         this.comments = comments;
     }
-    
+
+    public List getReplayComments() {
+        return replayComments;
+    }
+
+    public void setReplayComments(List replayComments) {
+        this.replayComments = replayComments;
+    }
     
     
 }
+

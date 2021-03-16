@@ -96,37 +96,37 @@ public class UserBean {
        }
    } 
       
-      public User searchUser(String userName){
-           try (Connection con = ConnectionFactory.getConnection()){
-           
-           String uppdateUser = String.format("SELECT * FROM user WHERE userName='%s'", userName);
-           
-           PreparedStatement pstmt = con.prepareStatement(uppdateUser);
-                ResultSet data = pstmt.executeQuery();
-                data.next();
-                User user = new User(
-                data.getString("userName"),
-                data.getString("email"),
-                data.getString("password"),
-                data.getInt("adminStatus"));
-           return user;
-       } catch (Exception e) {
-           System.out.println("Error UserBean.searchUser: " +e.getMessage());
-           return null;
-       }
+    public User searchUser(String userName){
+         try (Connection con = ConnectionFactory.getConnection()){
+
+         String uppdateUser = String.format("SELECT * FROM user WHERE userName='%s'", userName);
+
+         PreparedStatement pstmt = con.prepareStatement(uppdateUser);
+              ResultSet data = pstmt.executeQuery();
+              data.next();
+              User user = new User(
+              data.getString("userName"),
+              data.getString("email"),
+              data.getString("password"),
+              data.getInt("adminStatus"));
+         return user;
+     } catch (Exception e) {
+         System.out.println("Error UserBean.searchUser: " +e.getMessage());
+         return null;
+     }
     }
       
-      public int deleteUser(String userName){
-           try (Connection con = ConnectionFactory.getConnection()){
-           
-           String uppdateUser = String.format("DELETE FROM user WHERE userName='%s'", userName);
-           
-           PreparedStatement stmt = con.prepareStatement(uppdateUser);
-           int rows = stmt.executeUpdate(uppdateUser);
-           return rows;
-       } catch (Exception e) {
-           System.out.println("Error UserBean.changeUserData: " +e.getMessage());
-           return 0;
-       }
-      }
+    public int deleteUser(String userName){
+         try (Connection con = ConnectionFactory.getConnection()){
+
+         String uppdateUser = String.format("DELETE FROM user WHERE userName='%s'", userName);
+
+         PreparedStatement stmt = con.prepareStatement(uppdateUser);
+         int rows = stmt.executeUpdate(uppdateUser);
+         return rows;
+     } catch (Exception e) {
+         System.out.println("Error UserBean.changeUserData: " +e.getMessage());
+         return 0;
+     }
+    }
 }

@@ -62,4 +62,23 @@ public class RecipeResource {
         }
     }
     
+    @Path("/show")
+    @GET
+    public Response showRecipe(@HeaderParam("receptId")String recipeData){
+       if(recipeBean.showRecipe(recipeData) != null){
+           return Response.ok(recipeBean.showRecipe(recipeData)).build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+    
+    @Path("/delete")
+    @GET
+    public Response deleteRecipe(@HeaderParam("receptId")String recipeData){
+       if(recipeBean.deleteRecipe(recipeData) == 1){
+           return Response.ok().build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
 }

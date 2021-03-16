@@ -11,8 +11,11 @@
 <body>
     <header>
         <a href="Home.html"><img src="/imges/Untitled-2.png" alt="Logo"></a>
-        <button id="loginRegister" >login/register</button>
-        <p id="userName"></p>
+        <div class="divUserInlog">
+            <button id="loginRegister">login/register</button>
+            <p id="userName"></p>
+        </div>
+        <i onclick="openNav()">&#9776</i>
         <nav id="mySidenav" class="sidenav">
             <ul>
                 <a class="closebtn" onclick="openNav()">&times</a>
@@ -23,7 +26,8 @@
                 <hr>
             </ul>
         </nav>
-    </header><section id="accountForms">
+    </header>
+    <section id="accountForms">
         <form id="logIn" method="GET" onsubmit="return false">
             <fieldset>
                 <legend>Logga in</legend>
@@ -47,6 +51,7 @@
             </fieldset>
         </form>
     </section>
+    <main id="showSelectedRecipe" class="viewRecipeMain"></main>
     <footer>
         <p>ContactUs Phone Number: 04273837620. EmailAdres: TastyRecipes</p>
     </footer>

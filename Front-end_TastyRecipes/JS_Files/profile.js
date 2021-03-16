@@ -1,6 +1,5 @@
 let editAccount;
 let action = 1;
-window.onload= init;
 
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -21,6 +20,7 @@ async function init(){
     
     document.getElementById("logoutbutton").addEventListener("click", logOut);
     document.getElementById("editUserDataButton").addEventListener("click", adminChangeUserData);
+    document.getElementById("deleteRecipeButton").addEventListener("click", deleteREcept);
     document.getElementById("createReciptButton").addEventListener("click", createRecipe);
     document.getElementById("deleteUserButton").addEventListener("click", adminDeleteUser);
     document.getElementById("changeUserDataButton").addEventListener("click", changeUserData);
@@ -74,6 +74,10 @@ async function init(){
                 }
             }
         });
+
+        if(window.location.href.match("http://127.0.0.1:5500/HTML_Files/Home.html")){
+            localStorage.removeItem("recept");
+        }
     });
 
     document.getElementById("addNewSteg").addEventListener("click", () =>{
@@ -107,8 +111,24 @@ async function init(){
         });
     });
 
-    
-}
+    if(window.location.href.match("http://127.0.0.1:5500/HTML_Files/profile.html")){
+        if(sessionStorage.getItem("adminSatus") == 1 || sessionStorage.getItem("userName") == JSON.parse(localStorage.getItem('recept')).userName){
+            if(localStorage.getItem("editRecipeStatus") == 1){
+                getRecipeToEdit();
+            }
+        }
+    }
+
+    if( localStorage.getItem('editRecipeStatus') == 1){
+        document.getElementById("createReciptButton").disabled = true;
+        document.getElementById("deleteRecipeButton").disabled = false;
+        document.getElementById("editRecipeButton").disabled = false;
+    }else{
+        document.getElementById("deleteRecipeButton").disabled = true;
+        document.getElementById("editRecipeButton").disabled = true;
+    }
+}window.onload = init;
+
 function openNav() {
     if ( action == 1 ) {
         document.getElementById("mySidenav").style.width = "150px";
@@ -262,7 +282,7 @@ function adminDeleteUser(){
             "title": createReciptForm.title.value,
             "userName": sessionStorage.getItem("userName"),
             "category": x.options[i].text,
-            "tid": createReciptForm.tid.value,
+            "time": createReciptForm.tid.value,
             "imgPath": g,
             "nutritionalValue": createReciptForm.näringsvärde.value,
             "IngredientInfo": ingrediensString,
@@ -361,32 +381,37 @@ function searchRecept(){
     }
 }
 
-/*
+function getRecipeToEdit(){
+    if(!localStorage.getItem('recept')){
+    }else {
+        let createReciptForm = document.getElementById("createRecipt");
+        let recipe = JSON.parse(localStorage.getItem('recept'));
+        createReciptForm.title.value = recipe.title;
+        createReciptForm.Beskrivning.value = recipe.description;
+        createReciptForm.img.files = recipe.imgpath;
+    }
+}
 
-const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readasdataurl(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-});
+function deleteREcept(){
 
-async function main (){
-    const file = document.querySelector().files[0];
-    imgData = await toBase64(file);
-    imgData = json.stringify(imgData)
-    i = imgData.indexOf(",")
-
-    console.log(imgData.substring(i).charAt(303952))
-    const response = await fetch (url, {
-        method:"",
-        mode:"",
-        headers:{
-
-        }, 
-        body: JSON.stringify(imgData)
-    }).then(data => {
-        console.log(data)
-    }).catch(error => console.log(""));
-    return response;
-}*/
-
+    fetch('http://localhost:8080/Backend/resources/recipe/delete', {
+        method: "GET",
+        mode: 'cors',
+        headers: {  
+            'receptId': JSON.parse(localStorage.getItem('recept')).reciptId
+        }
+    })
+    .then((response) => {
+        alert("receptet togs bort");
+        localStorage.removeItem("recept");
+        localStorage.setItem('editRecipeStatus', 0);
+        window.location.reload();
+        return response.json(); // or .text() or .blob() ...
+    })
+    .then((text) => {
+        
+    })
+    .catch((e) => {
+    
+    });
+}

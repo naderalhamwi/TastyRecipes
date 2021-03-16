@@ -184,35 +184,49 @@ header #loginRegister {
   display: block;
 }
 
-main {
+.homeMain {
   text-align: center;
 }
 
-main .infoText {
+.homeMain .infoText {
   margin: 0 30%  0 30%;
 }
 
-main .infoText div {
+.homeMain .infoText div {
   background-color: #323232;
   margin: 0;
   padding: 0;
   height: 60px;
 }
 
-main .infoText div p {
+.homeMain .infoText div p {
   background-color: rgba(44, 44, 44, 0);
   margin-top: 3%;
   text-align: center;
   color: #FFC42E;
 }
 
-main .infoText p {
+.homeMain .infoText p {
   margin: 0;
   padding: 0;
   background-color: #E5E5E5;
 }
 
-#main img {
+.searchRecipeMain {
+  display: -ms-grid;
+  display: grid;
+  text-align: center;
+}
+
+.searchRecipeMain div {
+  display: inline-block;
+  background-color: #cacaca;
+  margin: 1% 30%  1% 30%;
+  cursor: pointer;
+  text-align: center;
+}
+
+.searchRecipeMain img {
   width: 50%;
   height: 50%;
 }
@@ -267,6 +281,15 @@ footer {
   }
   #editAccount fieldset .buttons, #adminEditAccount fieldset .buttons {
     margin-left: 1%;
+  }
+  .showSelectedRecipe {
+    margin: 1% 30% 1% 30%;
+    background-color: #e0e0e0;
+    text-align: center;
+  }
+  .showSelectedRecipe img {
+    width: 100%;
+    height: 100%;
   }
 }
 /*# sourceMappingURL=General.css.map */
